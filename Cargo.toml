@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["Fenrir Contributors"]
 description = "Real-time Windows threat correlation engine using ETW"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/yourusername/fenrir"
+repository = "https://github.com/anubhavg-icpl/fenrir"
 keywords = ["security", "etw", "windows", "threat-detection", "correlation"]
 categories = ["security", "system-monitor"]
 

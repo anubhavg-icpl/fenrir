@@ -44,14 +44,14 @@ Fenrir is a high-performance, real-time threat detection and correlation engine 
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/fenrir.git
+git clone https://github.com/anubhavg-icpl/fenrir.git
 cd fenrir
 cargo build --release
 ```
 
 ### Pre-built Binaries
 
-Download the latest release from the [Releases](https://github.com/yourusername/fenrir/releases) page.
+Download the latest release from the [Releases](https://github.com/anubhavg-icpl/fenrir/releases) page.
 
 ## Usage
 
@@ -180,4 +180,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Create an issue for bug reports or feature requests
 - Join our [Discord community](https://discord.gg/fenrir) for discussions
-- Check the [Wiki](https://github.com/yourusername/fenrir/wiki) for detailed documentation
+- Check the [Wiki](https://github.com/anubhavg-icpl/fenrir/wiki) for detailed documentation
