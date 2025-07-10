@@ -1,0 +1,46 @@
+- id: process_injection_createremotethread
+  name: Process Injection via CreateRemoteThread
+  description: Detects process injection attempts using CreateRemoteThread API
+  severity: high
+  mitre_attack:
+    - T1055.001
+  conditions:
+    - type: ProcessName
+      value: "*.exe"
+    - type: CommandLine
+      value: "*CreateRemoteThread*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 30.0
+
+- id: suspicious_svchost
+  name: Suspicious svchost.exe Execution
+  description: Detects svchost.exe running from non-standard locations
+  severity: high
+  mitre_attack:
+    - T1055
+    - T1036
+  conditions:
+    - type: ProcessName
+      value: svchost.exe
+    - type: ProcessPath
+      value: "!C:\\Windows\\System32\\*"
+  actions:
+    - Alert
+    - Block
+    - IncreaseRiskScore: 40.0
+
+- id: rundll32_suspicious_dll
+  name: Rundll32 Loading Suspicious DLL
+  description: Detects rundll32.exe loading DLLs from suspicious locations
+  severity: medium
+  mitre_attack:
+    - T1218.011
+  conditions:
+    - type: ProcessName
+      value: rundll32.exe
+    - type: CommandLine
+      value: "*\\AppData\\*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 25.0

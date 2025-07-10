@@ -1,0 +1,56 @@
+- id: registry_run_key_persistence
+  name: Registry Run Key Persistence
+  description: Detects modifications to Run registry keys for persistence
+  severity: high
+  mitre_attack:
+    - T1547.001
+  conditions:
+    - type: RegistryKey
+      value: "*\\Software\\Microsoft\\Windows\\CurrentVersion\\Run*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 30.0
+
+- id: scheduled_task_persistence
+  name: Scheduled Task Creation for Persistence
+  description: Detects creation of scheduled tasks that may be used for persistence
+  severity: medium
+  mitre_attack:
+    - T1053.005
+  conditions:
+    - type: ProcessName
+      value: schtasks.exe
+    - type: CommandLine
+      value: "*create*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 25.0
+
+- id: startup_folder_persistence
+  name: Startup Folder Persistence
+  description: Detects files being placed in startup folders
+  severity: medium
+  mitre_attack:
+    - T1547.001
+  conditions:
+    - type: FileAccess
+      path: "*\\Startup\\*"
+      operation: Create
+  actions:
+    - Alert
+    - IncreaseRiskScore: 25.0
+
+- id: service_creation_persistence
+  name: Windows Service Creation for Persistence
+  description: Detects creation of new Windows services
+  severity: high
+  mitre_attack:
+    - T1543.003
+  conditions:
+    - type: ProcessName
+      value: sc.exe
+    - type: CommandLine
+      value: "*create*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 30.0

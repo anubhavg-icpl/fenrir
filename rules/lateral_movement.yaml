@@ -1,0 +1,59 @@
+- id: smb_lateral_movement
+  name: SMB Lateral Movement Detected
+  description: Detects potential lateral movement via SMB/Windows admin shares
+  severity: high
+  mitre_attack:
+    - T1021.002
+  conditions:
+    - type: NetworkConnection
+      address: "*"
+      port: 445
+    - type: ProcessName
+      value: "*.exe"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 35.0
+
+- id: rdp_lateral_movement
+  name: RDP Lateral Movement
+  description: Detects potential lateral movement via Remote Desktop Protocol
+  severity: high
+  mitre_attack:
+    - T1021.001
+  conditions:
+    - type: NetworkConnection
+      address: "*"
+      port: 3389
+  actions:
+    - Alert
+    - IncreaseRiskScore: 30.0
+
+- id: psexec_execution
+  name: PSExec Remote Execution
+  description: Detects the use of PSExec for remote command execution
+  severity: high
+  mitre_attack:
+    - T1021.002
+    - T1569.002
+  conditions:
+    - type: ProcessName
+      value: "*psexec*.exe"
+  actions:
+    - Alert
+    - Block
+    - IncreaseRiskScore: 40.0
+
+- id: wmic_remote_execution
+  name: WMIC Remote Process Creation
+  description: Detects WMIC being used to spawn processes on remote systems
+  severity: high
+  mitre_attack:
+    - T1047
+  conditions:
+    - type: ProcessName
+      value: wmic.exe
+    - type: CommandLine
+      value: "*process*call*create*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 35.0

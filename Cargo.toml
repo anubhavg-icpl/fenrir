@@ -1,0 +1,73 @@
+[package]
+name = "fenrir"
+version = "0.1.0"
+edition = "2021"
+authors = ["Fenrir Contributors"]
+description = "Real-time Windows threat correlation engine using ETW"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/yourusername/fenrir"
+keywords = ["security", "etw", "windows", "threat-detection", "correlation"]
+categories = ["security", "system-monitor"]
+
+[dependencies]
+# ETW integration
+ferrisetw = "0.1"
+windows = { version = "0.54", features = [
+    "Win32_Foundation",
+    "Win32_System_Diagnostics_Etw",
+    "Win32_Security",
+    "Win32_System_Threading",
+] }
+
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+futures = "0.3"
+
+# Graph database
+surrealdb = { version = "1.1", features = ["kv-mem"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Rule engine
+yara = "0.26"
+regex = "1.10"
+
+# Configuration
+config = "0.13"
+clap = { version = "4.4", features = ["derive"] }
+
+# Performance
+parking_lot = "0.12"
+dashmap = "5.5"
+crossbeam = "0.8"
+
+# Time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# Metrics
+prometheus = "0.13"
+
+[dev-dependencies]
+criterion = "0.5"
+proptest = "1.4"
+tempfile = "3.8"
+
+[[bench]]
+name = "event_processing"
+harness = false
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3

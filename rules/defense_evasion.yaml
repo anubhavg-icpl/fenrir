@@ -1,0 +1,62 @@
+- id: powershell_obfuscation
+  name: Obfuscated PowerShell Command
+  description: Detects obfuscated PowerShell commands that may indicate malicious activity
+  severity: high
+  mitre_attack:
+    - T1027
+    - T1059.001
+  conditions:
+    - type: ProcessName
+      value: powershell.exe
+    - type: CommandLine
+      value: "*-enc*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 30.0
+
+- id: defender_tampering
+  name: Windows Defender Tampering
+  description: Detects attempts to disable or modify Windows Defender
+  severity: critical
+  mitre_attack:
+    - T1562.001
+  conditions:
+    - type: ProcessName
+      value: "*"
+    - type: CommandLine
+      value: "*Windows Defender*disable*"
+  actions:
+    - Alert
+    - Block
+    - IncreaseRiskScore: 45.0
+
+- id: amsi_bypass
+  name: AMSI Bypass Attempt
+  description: Detects attempts to bypass AMSI (Anti-Malware Scan Interface)
+  severity: high
+  mitre_attack:
+    - T1562.001
+  conditions:
+    - type: CommandLine
+      value: "*amsi*"
+    - type: Pattern
+      value: DefenseEvasion
+  actions:
+    - Alert
+    - Block
+    - IncreaseRiskScore: 40.0
+
+- id: clearing_event_logs
+  name: Event Log Clearing
+  description: Detects clearing of Windows event logs
+  severity: high
+  mitre_attack:
+    - T1070.001
+  conditions:
+    - type: ProcessName
+      value: wevtutil.exe
+    - type: CommandLine
+      value: "*clear-log*"
+  actions:
+    - Alert
+    - IncreaseRiskScore: 35.0
